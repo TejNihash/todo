@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User List</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: 40px auto;
+        }
+        th, td {
+            border: 1px solid #aaa;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f3f3f3;
+        }
+        .actions button {
+            padding: 5px 10px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+        .add-btn {
+            display: block;
+            width: 100px;
+            margin: 40px auto;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="text-align: center;">Welcome to ToDo App</h1>
+    <h2 style="text-align: center;">Tasks List</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th> <!-- New column for buttons -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.id }}</td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.description }}</td>
+                <td class="actions">
+                    <form method="get" action="/update/{{ task.id }}" style="display:inline;">
+                        <button type="submit">Update</button>
+                    </form>
+                    <form method="post" action="/delete/{{ task.id }}" style="display:inline;">
+                        <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/add" class="add-btn">Add Task</a>
+    
+</body>
+</html>
